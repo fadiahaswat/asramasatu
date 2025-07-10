@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Lengkap Ber-Asrama</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- 
+        ANALISIS DAN PERBAIKAN (v12.1 - Update Tata Tertib):
+        1.  Layout Variatif & Interaktif: Merombak total bagian "Tata Tertib". Menggunakan kombinasi akordeon untuk kategori utama, dan di dalamnya menggunakan layout kartu (card) dan tab untuk sub-kategori. Ini menghilangkan monotonitas daftar panjang.
+        2.  Fokus pada Program Wajib: "Tata Tertib Bahasa", "Tahfizh", dan "Tilawah" kini disajikan dalam format kartu yang menonjol di dalam akordeon "Program Wajib", membuatnya lebih mudah ditemukan.
+        3.  Visualisasi Aturan: Menggunakan ikon dan warna secara tematik untuk setiap kategori aturan (misalnya, hijau untuk ibadah, biru untuk keamanan) untuk membantu pemahaman visual.
+        4.  Hierarki Informasi: Memperbaiki struktur judul dan sub-judul, serta menggunakan list-styling yang jelas untuk memecah informasi kompleks menjadi poin-poin yang mudah dicerna.
+        5.  Integrasi Konten Baru: Semua materi baru dari pengguna telah diintegrasikan sepenuhnya ke dalam layout yang baru, dengan penyesuaian tata bahasa untuk kejelasan.
+    -->
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        
+        /* --- Animasi & Transisi Halaman --- */
+        .content-section { 
+            display: none; 
+        }
+        .content-section.active { 
+            display: block; 
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        @keyframes fadeIn {  
+            from { opacity: 0; transform: translateY(15px); }  
+            to { opacity: 1; transform: translateY(0); }  
+        }
+
+        /* --- Gaya Navigasi --- */
+        .nav-link.active { 
+            background-color: #ecfdf5; /* emerald-50 */
+            color: #065f46; /* emerald-800 */
+            font-weight: 700; 
+        }
+        .nav-link-mobile.active { 
+            color: #10b981; /* emerald-500 */
+            transform: scale(1.1); 
+        }
+        .nav-link, .nav-link-mobile { 
+            transition: all 0.25s ease-in-out; 
+        }
+
+        /* --- Gaya Filter & Tab --- */
+        .filter-btn, .tab-btn { 
+            transition: all 0.3s ease; 
+        }
+        .filter-btn.active, .tab-btn.active { 
+            background-color: #10b981; /* emerald-500 */
+            color: white; 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.3); 
+        }
+        .tab-content { 
+            display: none; 
+        }
+        .tab-content.active { 
+            display: block; 
+            animation: fadeIn 0.5s; 
+        }
+        .daily-activity-card {  
+            transition: opacity 0.4s ease, max-height 0.6s ease, transform 0.4s ease, padding 0.5s ease, margin 0.5s ease;  
+            overflow: hidden;  
+            transform-origin: top;
+        }
+        .daily-activity-card.filtered-out {  
+            max-height: 0 !important;  
+            opacity: 0 !important;  
+            padding-top: 0 !important;  
+            padding-bottom: 0 !important;  
+            margin-top: 0 !important;  
+            margin-bottom: 0 !important;  
+            transform: scaleY(0.9);
+            border-width: 0 !important;
+        }
+
+        /* --- Gaya Kartu Akses Cepat --- */
+        .quick-link-card { 
+            transition: all 0.3s ease; 
+            border: 1px solid #e5e7eb; /* slate-200 */
+        }
+        .quick-link-card:hover { 
+            transform: translateY(-6px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08); 
+            border-color: #10b981; /* emerald-500 */
+        }
+        
+        /* --- Gaya Flowchart Pembinaan --- */
+        .flowchart { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 1rem;
+        }
+        .flowchart-step { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            text-align: center; 
+            position: relative; 
+            padding: 0.5rem; 
+            width: 100%;
+        }
+        .flowchart-arrow { 
+            font-size: 2rem; 
+            color: #cbd5e1; /* slate-300 */
+            line-height: 1;
+            transform: rotate(90deg); 
+        }
+        .flowchart-content { 
+            border: 2px solid; 
+            padding: 1rem; 
+            border-radius: 0.75rem; 
+            background-color: white; 
+            width: 100%;
+            max-width: 250px;
+        }
+        @media (min-width: 1024px) {
+            .flowchart { 
+                flex-direction: row; 
+                justify-content: center; 
+                align-items: flex-start; 
+                gap: 0;
+            }
+            .flowchart-step { 
+                flex: 1; 
+                padding: 0;
+            }
+            .flowchart-arrow { 
+                transform: rotate(0deg); 
+                margin: 0 -0.5rem; 
+                padding-top: 2.5rem;
+            }
+            .flowchart-content {
+                min-height: 120px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        /* --- Gaya Akordeon Tata Tertib --- */
+        .accordion-header { 
+            cursor: pointer; 
+            transition: background-color 0.3s ease; 
+        }
+        .accordion-header:hover { 
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .accordion-content { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+        .accordion-header.active + .accordion-content {
+            padding-top: 1.25rem;
+            padding-bottom: 1.25rem;
+        }
+        .accordion-header .accordion-icon { 
+            transition: transform 0.3s ease; 
+        }
+        .accordion-header.active .accordion-icon { 
+            transform: rotate(180deg); 
+        }
+        .rules-list li { 
+            position: relative; 
+            padding-left: 1.75rem;
+        }
+        .rules-list li::before { 
+            content: '✓'; 
+            position: absolute; 
+            left: 0; 
+            top: 2px;
+            color: #10b981; /* emerald-500 */
+            font-weight: 700; 
+        }
+
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <!-- Header Mobile -->
+        <header class="md:hidden sticky top-0 bg-white/80 backdrop-blur-sm z-20 border-b border-slate-200 p-3">
+            <h1 id="mobile-header" class="text-center text-lg font-bold text-emerald-800 flex items-center justify-center gap-2">Panduan Asrama</h1>
+        </header>
+
+        <!-- Navigasi Sidebar (Desktop) -->
+        <nav class="hidden md:flex flex-col w-64 bg-white border-r border-slate-200 p-4 shrink-0 h-screen sticky top-0">
+            <div class="flex items-center gap-2 mb-8">
+                <span class="text-3xl">🚀</span>
+                <h1 class="text-2xl font-extrabold text-emerald-700">Panduan Berasrama</h1>
+            </div>
+            <ul class="space-y-2">
+                <li><a href="#beranda" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    <span>Beranda</span>
+                </a></li>
+                <li><a href="#program" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <span>Program Unggulan</span>
+                </a></li>
+                <li><a href="#profil" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8.26a1 1 0 0 1 .55-.89l5.24-2.75a1 1 0 0 0 0-1.78L12.55 1a1 1 0 0 0-1.1 0L6.21 2.84a1 1 0 0 0 0 1.78l5.24 2.75A1 1 0 0 1 12 8.26V22z"></path><path d="M2 17h20"></path><path d="M18 17v3"></path><path d="M6 17v3"></path></svg>
+                    <span>Profil Asrama</span>
+                </a></li>
+                <li><a href="#agenda" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span>Agenda Harian</span>
+                </a></li>
+                <li><a href="#tata-tertib" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <span>Tata Tertib</span>
+                </a></li>
+                <li><a href="#prosedur" class="nav-link flex items-center gap-3 px-4 py-2.5 rounded-lg font-semibold text-slate-600 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Prosedur & Pengurus</span>
+                </a></li>
+            </ul>
+            <div class="mt-auto bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+                <p class="text-sm text-emerald-800 font-semibold">Butuh Bantuan? 🤔</p>
+                <p class="text-xs text-emerald-600 mt-1">Hubungi Tim Pengasuhan untuk informasi lebih lanjut.</p>
+            </div>
+        </nav>
+
+        <!-- Konten Utama -->
+        <main class="flex-1 p-4 md:p-8 overflow-y-auto pb-28 md:pb-8">
+            
+            <section id="beranda" class="content-section space-y-12">
+                <!-- Header Section -->
+                <div class="bg-gradient-to-br from-emerald-600 to-green-700 text-white p-8 rounded-2xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-2xl md:text-3xl font-extrabold mb-3">Asrama 1 Abu Bakar Ash-Shiddiq 👋</h2>
+                        <p class="text-lg text-emerald-100 max-w-xl">Selamat datang! Halaman ini adalah pusat informasi resmi seputar profil asrama, program unggulan, agenda harian, dan tata tertib santri Asrama 1 (Kelas A, B, dan Tahfizh) Tahun Ajaran 2025/2026.</p>
+                    </div>
+                    <div class="text-6xl md:text-8xl shrink-0 opacity-80">
+                        🏫
+                    </div>
+                </div>
+
+                <!-- Quick Access Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Akses Cepat ⚡</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="#agenda" class="quick-link-card nav-link-internal bg-white p-6 rounded-xl shadow-sm flex items-center gap-5">
+                            <div class="bg-sky-100 text-sky-600 p-3 rounded-full text-3xl">🗓️</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-slate-800">Agenda Harian</h4>
+                                <p class="text-sm text-slate-500">Lihat jadwal kegiatan harianmu.</p>
+                            </div>
+                        </a>
+                        <a href="#tata-tertib" class="quick-link-card nav-link-internal bg-white p-6 rounded-xl shadow-sm flex items-center gap-5">
+                            <div class="bg-amber-100 text-amber-600 p-3 rounded-full text-3xl">📜</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-slate-800">Tata Tertib</h4>
+                                <p class="text-sm text-slate-500">Pahami aturan & kewajiban.</p>
+                            </div>
+                        </a>
+                        <a href="#prosedur" class="quick-link-card nav-link-internal bg-white p-6 rounded-xl shadow-sm flex items-center gap-5">
+                            <div class="bg-rose-100 text-rose-600 p-3 rounded-full text-3xl">⚖️</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-slate-800">Prosedur Penting</h4>
+                                <p class="text-sm text-slate-500">Info izin, jenguk, dan pembinaan.</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Pengumuman Iuran Asrama - Versi Variatif & Ceria -->
+                <div class="relative p-6 bg-gradient-to-br from-emerald-50 via-white to-emerald-50 border border-emerald-200 rounded-2xl shadow-lg">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl">🪙</div>
+                        <div>
+                            <h3 class="text-xl font-extrabold text-emerald-800 mb-1">Iuran Asrama: Ringan & Bermanfaat!</h3>
+                            <p class="text-sm text-emerald-700">Untuk mendukung kenyamanan bersama, santri berpartisipasi melalui iuran bulanan <strong>Rp20.000</strong>. Iuran ini dialokasikan untuk:</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-center text-xs font-medium text-slate-700 mt-4">
+                        <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">Apresiasi kamar terbersih ✨</div>
+                        <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">Hadiah perlombaan 🎁</div>
+                        <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">Konsumsi acara bersama 🎉</div>
+                        <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">Alat kebersihan umum 🧼</div>
+                    </div>
+                </div>
+
+                <!-- Goals Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Tujuan Kita Bersama ✨</h3>
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 space-y-6">
+                        <div class="flex items-start gap-5">
+                            <div class="bg-emerald-100 text-emerald-600 p-3 rounded-full text-3xl mt-1 shrink-0">🌿</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-emerald-800">Lingkungan Kondusif</h4>
+                                <p class="text-sm text-slate-500">Membangun rumah kedua yang nyaman, aman, dan mendukung untuk belajar, beribadah, serta bertumbuh bersama.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="bg-amber-100 text-amber-600 p-3 rounded-full text-3xl mt-1 shrink-0">🏆</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-amber-800">Karakter Unggul & Mandiri</h4>
+                                <p class="text-sm text-slate-500">Mengembangkan pribadi yang disiplin, tangguh, bertanggung jawab, dan siap menghadapi tantangan.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-5">
+                            <div class="bg-sky-100 text-sky-600 p-3 rounded-full text-3xl mt-1 shrink-0">🎯</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-sky-800">Fokus pada Prestasi</h4>
+                                <p class="text-sm text-slate-500">Mendukung santri untuk fokus pada keunggulan akademik, pengembangan bahasa, dan penguatan hafalan Al-Qur'an.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Team Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">Hubungi Tim Pengasuhan Asrama 1 📲</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-5 rounded-xl shadow-lg text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5"><div><p class="text-4xl mb-2">🧑‍🏫</p><h4 class="font-bold text-lg text-emerald-800">M. Ahnaf Lubab</h4><p class="text-sm text-slate-500 font-medium mb-4">Pamong (Kepala Asrama)</p></div><a href="https://wa.me/6282145575016" target="_blank" class="w-full bg-green-500 text-white font-semibold px-4 py-2 rounded-md text-sm hover:bg-green-600 transition-colors">WhatsApp 💬</a></div>
+                        <div class="bg-white p-5 rounded-xl shadow-lg text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5"><div><p class="text-4xl mb-2">👨‍💼</p><h4 class="font-bold text-lg text-emerald-800">Andi Aqillah Fadia H.</h4><p class="text-sm text-slate-500 font-medium mb-4">Musyrif Kelas 2A</p></div><a href="https://wa.me/6285339213109" target="_blank" class="w-full bg-green-500 text-white font-semibold px-4 py-2 rounded-md text-sm hover:bg-green-600 transition-colors">WhatsApp 💬</a></div>
+                        <div class="bg-white p-5 rounded-xl shadow-lg text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5"><div><p class="text-4xl mb-2">👨‍💼</p><h4 class="font-bold text-lg text-emerald-800">Abdullah</h4><p class="text-sm text-slate-500 font-medium mb-4">Musyrif Kelas 2B</p></div><a href="https://wa.me/62881025916368" target="_blank" class="w-full bg-green-500 text-white font-semibold px-4 py-2 rounded-md text-sm hover:bg-green-600 transition-colors">WhatsApp 💬</a></div>
+                        <div class="bg-white p-5 rounded-xl shadow-lg text-center flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5"><div><p class="text-4xl mb-2">📖</p><h4 class="font-bold text-lg text-emerald-800">M. Zhafir Setiaji</h4><p class="text-sm text-slate-500 font-medium mb-4">Musyrif Tahfizh</p></div><a href="https://wa.me/6287717412804" target="_blank" class="w-full bg-green-500 text-white font-semibold px-4 py-2 rounded-md text-sm hover:bg-green-600 transition-colors">WhatsApp 💬</a></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="program" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Program Unggulan</h2>
+                <p class="text-slate-500 mb-6">Asah dirimu dengan program-program unggulan di asrama!</p>
+                
+                <div id="program-tabs-container" class="bg-white p-4 md:p-6 rounded-xl shadow-lg border border-slate-200">
+                    <div class="bg-slate-100 p-1 rounded-full mb-6 flex space-x-1">
+                        <button class="tab-btn active flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold" data-tab="program-bahasa">🌐 Program Bahasa</button>
+                        <button class="tab-btn flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold text-slate-500 hover:bg-slate-200" data-tab="program-tahfidz">📖 Program Tahfizh</button>
+                    </div>
+
+                    <div id="program-bahasa" class="tab-content active"><h3 class="text-xl font-bold text-emerald-700 mb-4 text-center">🗺️ Peta Petualangan Bahasa</h3><p class="text-center text-slate-500 mb-8">Ikuti 4 langkah ini untuk menjadi jagoan bahasa Arab & Inggris!</p><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-center"><div class="flex flex-col items-center"><div class="bg-sky-100 text-sky-600 rounded-full h-20 w-20 flex items-center justify-center text-4xl mb-3">🧠</div><h4 class="font-bold">1. Belajar di Kelas</h4><p class="text-sm text-slate-500">Catat, hafal, dan praktikkan kosakata & percakapan bareng teman.</p></div><div class="flex flex-col items-center"><div class="bg-amber-100 text-amber-600 rounded-full h-20 w-20 flex items-center justify-center text-4xl mb-3">🗣️</div><h4 class="font-bold">2. Praktik Massal</h4><p class="text-sm text-slate-500">Setiap Jumat pagi, kita praktik bareng di halaman asrama. Seru!</p></div><div class="flex flex-col items-center"><div class="bg-emerald-100 text-emerald-600 rounded-full h-20 w-20 flex items-center justify-center text-4xl mb-3">🗓️</div><h4 class="font-bold">3. Implementasi Harian</h4><p class="text-sm text-slate-500">Wajib pakai bahasa di waktu tertentu. Arab di pekan ganjil, Inggris di pekan genap.</p></div><div class="flex flex-col items-center"><div class="bg-rose-100 text-rose-600 rounded-full h-20 w-20 flex items-center justify-center text-4xl mb-3">🎤</div><h4 class="font-bold">4. Muhadharah</h4><p class="text-sm text-slate-500">Saatnya unjuk gigi! Tampil pidato di depan teman-teman secara bergiliran.</p></div></div><div class="mt-8 bg-slate-100 p-4 rounded-lg text-center"><p class="font-semibold text-slate-700">🚨 Melanggar? Siap-siap dipanggil ke <b class="text-red-600">Mahkamah Lughah</b> (sidang bahasa) untuk pembinaan! ⚖️</p></div></div>
+                    
+                    <div id="program-tahfidz" class="tab-content">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-4 text-center">🚀 Peta Perjalanan Sang Hafizh</h3>
+                        <p class="text-center text-slate-500 mb-8 max-w-2xl mx-auto">Setiap langkah dalam menghafal adalah ibadah. Ikuti peta ini untuk menavigasi perjalananmu menjadi seorang Hafizh Qur'an.</p>
+                        
+                        <div class="relative mt-10">
+                            <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 -translate-y-1/2">
+                                <svg width="100%" height="100%"><line x1="0" y1="50%" x2="100%" y2="50%" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="10 10"/></svg>
+                            </div>
+
+                            <div class="relative flex flex-col md:flex-row justify-between items-center gap-8 md:gap-0">
+                                <div class="flex flex-col items-center text-center w-full md:w-1/3 z-10">
+                                    <div class="bg-sky-100 text-sky-600 rounded-full h-24 w-24 flex items-center justify-center text-5xl mb-3 border-4 border-white shadow-lg">🎯</div>
+                                    <h4 class="font-bold text-lg text-sky-800">Tahap 1: Fondasi</h4>
+                                    <p class="text-sm text-slate-600 px-2">Menyelesaikan & menguatkan (mutqin) hafalan <b>2 juz di awal tahun</b>.</p>
+                                </div>
+                                <div class="flex flex-col items-center text-center w-full md:w-1/3 z-10">
+                                    <div class="bg-amber-100 text-amber-600 rounded-full h-24 w-24 flex items-center justify-center text-5xl mb-3 border-4 border-white shadow-lg">🧭</div>
+                                    <h4 class="font-bold text-lg text-amber-800">Tahap 2: Penentuan Arah</h4>
+                                    <p class="text-sm text-slate-600 px-2">Pilih jalur fokus: <b>Ziyadah</b> (tambah hafalan) atau <b>Mutqin</b> (perkuat hafalan).</p>
+                                </div>
+                                <div class="flex flex-col items-center text-center w-full md:w-1/3 z-10">
+                                    <div class="bg-emerald-100 text-emerald-600 rounded-full h-24 w-24 flex items-center justify-center text-5xl mb-3 border-4 border-white shadow-lg">👑</div>
+                                    <h4 class="font-bold text-lg text-emerald-800">Tahap 3: Puncak</h4>
+                                    <p class="text-sm text-slate-600 px-2">Mencapai target utama: <b>Khatam 30 Juz</b> bagi yang memilih jalur Ziyadah.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12">
+                            <h4 class="text-lg font-bold text-center text-slate-700 mb-4">Ujian & Validasi Hafalan 💪</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                                <div class="bg-slate-100 p-4 rounded-lg flex items-start gap-4">
+                                    <span class="text-3xl mt-1 shrink-0">📜</span>
+                                    <div>
+                                        <h5 class="font-bold text-slate-800">Tasmi' (Setoran Sekali Duduk)</h5>
+                                        <p class="text-sm text-slate-600">Buktikan kekuatan hafalanmu dengan menyetorkan 10, 20, atau 30 juz di depan penguji.</p>
+                                    </div>
+                                </div>
+                                <div class="bg-slate-100 p-4 rounded-lg flex items-start gap-4">
+                                    <span class="text-3xl mt-1 shrink-0">🤝</span>
+                                    <div>
+                                        <h5 class="font-bold text-slate-800">Sima'an (Saling Menyimak)</h5>
+                                        <p class="text-sm text-slate-600">Jaga hafalan bersama dengan menyetorkan satu juz penuh kepada teman sejawat.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="profil" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Profil Asrama 1: Abu Bakar Ash-Shiddiq</h2>
+                <p class="text-slate-500 mb-8">Inilah rumah keduamu! Kenali lebih dekat lingkungan dan fasilitas yang akan menemanimu bertumbuh.</p>
+                
+                <div id="profil-tabs-container" class="bg-white p-4 md:p-6 rounded-xl shadow-lg border border-slate-200">
+                    <!-- Tab Utama Profil -->
+                    <div class="bg-slate-100 p-1 rounded-full mb-6 flex space-x-1">
+                        <button class="tab-btn active flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold" data-tab="profil-fasilitas">🛠️ Fasilitas & Lokasi</button>
+                        <button class="tab-btn flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold text-slate-500 hover:bg-slate-200" data-tab="profil-kamar">🛏️ Pembagian Kamar</button>
+                    </div>
+
+                    <!-- Konten Fasilitas & Lokasi -->
+<div id="profil-fasilitas" class="tab-content active">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+    <!-- Kolom Kiri: Fasilitas + Info Lokasi -->
+    <div class="space-y-6">
+
+      <!-- Fasilitas -->
+      <div>
+        <h3 class="text-2xl font-bold text-emerald-700 mb-4">Fasilitas Pendukung</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center">
+          <!-- Item Fasilitas -->
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">👮</p>
+            <p class="text-xs font-semibold">Keamanan 24 Jam</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">🕌</p>
+            <p class="text-xs font-semibold">Masjid Jami'</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">📚</p>
+            <p class="text-xs font-semibold">Perpustakaan & Komputer</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">🛒</p>
+            <p class="text-xs font-semibold">1918 Mart</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">🍽️</p>
+            <p class="text-xs font-semibold">Ruang Makan & Kantin</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">⚽</p>
+            <p class="text-xs font-semibold">Lapangan Serbaguna</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">📺</p>
+            <p class="text-xs font-semibold">Aula & Ruang TV</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">🧺</p>
+            <p class="text-xs font-semibold">Drop Point Laundry</p>
+          </div>
+          <div class="bg-slate-100 p-3 rounded-lg">
+            <p class="text-2xl">💧</p>
+            <p class="text-xs font-semibold">Isi Ulang Air Minum</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lokasi & Kapasitas -->
+      <div class="bg-slate-100 p-6 rounded-2xl shadow border border-slate-200">
+        <h3 class="text-xl md:text-2xl font-bold text-slate-700 mb-2 flex items-center gap-2">📍 Lokasi & Kapasitas</h3>
+        <p class="text-sm md:text-base text-slate-600 mb-3">
+          Jl. Letjend. S. Parman No. 68, Wirobrajan, Yogyakarta (Kampus Induk).
+        </p>
+        <p class="text-sm md:text-base text-slate-600 mb-4">
+          <strong>Kapasitas:</strong> 96 Santri, 6 Kamar Tidur, 28 Kamar Mandi.
+        </p>
+        <a href="https://maps.app.goo.gl/GRbCH7TSwdvW6i7A9" target="_blank"
+           class="inline-flex items-center justify-center gap-2 bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-blue-600 transition w-full md:w-fit">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 20s6-5.686 6-10A6 6 0 104 10c0 4.314 6 10 6 10z" />
+          </svg>
+          Buka di Google Maps 🗺️
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Kolom Kanan: Google Map -->
+    <div class="overflow-hidden rounded-2xl shadow border border-slate-200">
+      <iframe
+  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15811.24379970182!2d110.3526265!3d-7.8105215!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a577c8c9e2c15%3A0xd253c28ff1ecff13!2sMadrasah%20Mu'allimin%20Muhammadiyah%20Yogyakarta!5e0!3m2!1sid!2sid!4v1720578000000!5m2!1sid!2sid"
+  width="100%" height="100%" style="min-height: 600px; border:0;" allowfullscreen="" loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+                    <!-- Konten Pembagian Kamar -->
+                    <div id="profil-kamar" class="tab-content">
+                        <div id="kamar-tabs-container">
+                               <!-- Tab Sekunder Kamar -->
+                            <div class="bg-slate-200 p-1 rounded-full mb-6 flex space-x-1">
+                                <button class="tab-btn active flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold" data-tab="kamar-tidur">Kamar Tidur</button>
+                                <button class="tab-btn flex-1 shrink-0 py-2.5 px-1 rounded-full text-sm font-semibold text-slate-500 hover:bg-slate-300" data-tab="kamar-mandi">Kamar Mandi</button>
+                            </div>
+
+                            <!-- Konten Kamar Tidur -->
+                            <div id="kamar-tidur" class="tab-content active">
+                                <h3 class="text-xl font-bold text-slate-700 mb-4 text-center">Daftar Penghuni Kamar Tidur 🛌</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-cyan-400"><h4 class="font-bold text-lg mb-3 text-cyan-800">Kamar F</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Adelio Daffa Syahrizha</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Ahmad Ahsanur Rizqi</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Arkana El Sabilly</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Athaya Auza'I Mubarak</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Dama Arza Evannova</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Danar Nizam Daniswara</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Devgan Jadid Sahlvatico</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Fariq Imtiyas Aufaa Kamil</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Firaas Izzulhaq</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Gilang Omar F</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Jaladri Arif Wirasena</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Kemal Mubarak Siregar</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Khairil Nizam</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Mirza Nasyath Ahza A.</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Farros Linggar C.</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Fathir Alfalah</span><span class="bg-cyan-100 text-cyan-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                    </ul></div>
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-teal-400"><h4 class="font-bold text-lg mb-3 text-teal-800">Kamar G</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Narendra Wibawa</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Naufal Zhafran Purnama</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Alano Faaiq Alfeno</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Arfandhika Fakhrul Islam</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Aydin Rafif</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Danish Alzahid Dinasti</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Ghani Arif Witjaksono</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Haidarrafid Satriaa Ardhani</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Iqbal Zulfikar Al Hanif</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Jangky Dausat</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Kumara Banyu Argani</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>M. Dede Afkar</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Mekha Ilham Lutfianto</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Aiman Naim</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Karel Ashiddiq</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Naufal Fahmi Darsono</span><span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                    </ul></div>
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-amber-400"><h4 class="font-bold text-lg mb-3 text-amber-800">Kamar H</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Nazhif Fahreza Zuhairy</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Rais Abqari Ash Shidqi</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>William Ramadhan Al Ghazali</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Zia El Ibrahim Aqeela P.W.</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Ahmad Arkan Sya'Bani</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Ahmad Darwis</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Ahmad Ghozi El Muntazhor</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Aldan 'Izzul Islam</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Fawwaz Elfareza Zuhri</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>M. Fathan Alfarisi Harahap</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Ahsani Taqwim</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Ayyub Al Fatih</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Gibran Rafassya</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Narendra Gerrardi Kusumah</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Rijal Abdul A'Ziz</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                        <li class="flex justify-between items-center"><span>Rizki Chandra Dewantara</span><span class="bg-amber-100 text-amber-800 text-xs font-semibold px-2 py-0.5 rounded-full">2A</span></li>
+                                    </ul></div>
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-indigo-400"><h4 class="font-bold text-lg mb-3 text-indigo-800">Kamar I</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Ahmad Miqdad</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Dzaky Salman Al Farisi</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Alvi Mumtaz B.H.</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Mahdi Hafidz</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Naufal Rasyid Arafi</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Nahsif Ilman Hazim Purwono</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Nawwaf Bahy Rafif</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Nizar Adhyatma Aryanda</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Rafa Agitananda Az Zayyan</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Rafa Faeyza Fa'Iz</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Rizqi Satria Putra Surya</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Umar Ubaidillah Tsaqif</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Wildan Faiz Mahendra</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2B</span></li>
+                                        <li class="flex justify-between items-center"><span>Faiq Fauzil Adhim</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Fairuz Azzam Mahfuzh</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Arkhan Attaqi</span><span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                    </ul></div>
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-rose-400"><h4 class="font-bold text-lg mb-3 text-rose-800">Kamar K</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Muhammad Daffa Naufal Alaika</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Muzakki Fairuzzaman</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Neymar Tsaqif Hikmatyar</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Rifqi Maliki</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Yasykur Slamer'Abqariy</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Zhafran Dhiaurrahman Hakim</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2C</span></li>
+                                        <li class="flex justify-between items-center"><span>Achmad Adi Darwis Elfaza</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Galang Afkar Artyanto</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Gilang Asytar Artyanto</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Alif Al-Fatih</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Faiz Ibnu Zakaria</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Mahdi Hanafi</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Muhdi Hafidz</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Rizqi Ahmad Altaf Zafar</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2D</span></li>
+                                        <li class="flex justify-between items-center"><span>Dzaky Anthony Akbar</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2G</span></li>
+                                        <li class="flex justify-between items-center"><span>Muwafaqi Amru Ahmad</span><span class="bg-rose-100 text-rose-800 text-xs font-semibold px-2 py-0.5 rounded-full">2G</span></li>
+                                    </ul></div>
+                                    <div class="bg-white p-5 rounded-xl shadow-lg border-t-4 border-slate-400"><h4 class="font-bold text-lg mb-3 text-slate-800">Kamar L</h4><ul class="space-y-2 text-sm text-slate-600">
+                                        <li class="flex justify-between items-center"><span>Abdul Ghani Irfan Rafif</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Abid Fadhil Abiyah</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Ahmad Dahlan Asy'Ari</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Athallah Azmi Ghaisan M.</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Azmi Zulfadli Syafiq</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Azri Labibul Khawarizmi</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Dzar Al Ghifari</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Fatihan Al Ghifari</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Hisyam Nabil Pasha</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Ibadillah Kaiazmi Mubarak</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Kashvi Jabbar Azana</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Khawarizmi Fakhrulhaq</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Muh. Naufal Alif</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Muhammad Aghna Ilman Rafa</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Royyan Abdurrahman Ibtisam</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                        <li class="flex justify-between items-center"><span>Sakhi Arkan Elfariza</span><span class="bg-slate-200 text-slate-800 text-xs font-semibold px-2 py-0.5 rounded-full">2H</span></li>
+                                    </ul></div>
+                                </div>
+                            </div>
+
+                            <!-- Konten Kamar Mandi -->
+                            <div id="kamar-mandi" class="tab-content">
+                                <h3 class="text-xl font-bold text-slate-700 mb-4 text-center">Daftar Pengguna Kamar Mandi 🚿</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 1</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Adelio Daffa S.</li><li>Ahmad Ahsanur R.</li><li>Arkana El Sabilly</li><li>Athaya Auza'I M.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 2</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Dama Arza E.</li><li>Danar Nizam D.</li><li>Devgan Jadid S.</li><li>Fariq Imtiyas A.K.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 3</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Firaas Izzulhaq</li><li>Gilang Omar F</li><li>Jaladri Arif W.</li><li>Kemal Mubarak S.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 4</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Khairil Nizam</li><li>Mirza Nasyath A.A.</li><li>M. Farros Linggar C.</li><li>M. Fathir Alfalah</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 5</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Narendra Wibawa</li><li>Naufal Zhafran P.</li><li>Alano Faaiq Alfeno</li><li>Arfandhika Fakhrul I.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 6</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Aydin Rafif</li><li>Danish Alzahid D.</li><li>Ghani Arif W.</li><li>Haidarrafid Satriaa A.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 7</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Iqbal Zulfikar</li><li>Muhammad Aiman Naim</li><li>M. Karel Ashiddiq</li><li>Naufal Fahmi D.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 9</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Nazhif Fahreza Z.</li><li>Rais Abqari A.S.</li><li>William Ramadhan A.G.</li><li>Zia El Ibrahim A.P.W.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 10</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Ahmad Arkan S.</li><li>Ahmad Darwis</li><li>Ahmad Ghozi E.M.</li><li>Aldan 'Izzul Islam</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 11</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Fawwaz Elfareza Z.</li><li>M. Fathan A.H.</li><li>M. Ahsani Taqwim</li><li>M. Ayyub Al Fatih</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 12</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>M. Gibran Rafassya</li><li>Narendra Gerrardi K.</li><li>Rijal Abdul A'Ziz</li><li>Rizki Chandra D.</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 13</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Ahmad Miqdad</li><li>Dzaky Salman A.F.</li><li>M. Alvi Mumtaz B.H.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 14</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Muhammad Mahdi Hafidz</li><li>M. Naufal Rasyid A.</li><li>Nahsif Ilman H.P.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 15</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Nawwaf Bahy Rafif</li><li>Nizar Adhyatma A.</li><li>Rafa Agitananda A.Z.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 16</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Rafa Faeyza Fa'Iz</li><li>Rizqi Satria P.S.</li><li>Umar Ubaidillah T.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 17</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Wildan Faiz Mahendra</li><li>Faiq Fauzil Adhim</li><li>Fairuz Azzam Mahfuzh</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 18</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Muhammad Arkhan Attaqi</li><li>M. Daffa Naufal A.</li><li>Muzakki Fairuzzaman</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 19</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Neymar Tsaqif H.</li><li>Rifqi Maliki</li><li>Yasykur S.'Abqariy</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 20</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Zhafran Dhiaurrahman H.</li><li>Achmad Adi Darwis E.</li><li>Galang Afkar Artyanto</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 21</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Gilang Asytar Artyanto</li><li>M. Alif Al-Fatih</li><li>M. Faiz Ibnu Zakaria</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 22</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Muhammad Mahdi Hanafi</li><li>Muhammad Muhdi Hafidz</li><li>Rizqi Ahmad Altaf Zafar</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 23</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Dzaky Anthony Akbar</li><li>Muwafaqi Amru Ahmad</li><li>Abdul Ghani Irfan Rafif</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 24</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Abid Fadhil Abiyah</li><li>Ahmad Dahlan Asy'Ari</li><li>Athallah Azmi Ghaisan M.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 25</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Azmi Zulfadli Syafiq</li><li>Azri Labibul Khawarizmi</li><li>Dzar Al Ghifari</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 26</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Fatihan Al Ghifari</li><li>Hisyam Nabil Pasha</li><li>Ibadillah Kaiazmi M.</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 27</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>Kashvi Jabbar Azana</li><li>Khawarizmi Fakhrulhaq</li><li>Muh. Naufal Alif</li><li>&nbsp;</li></ul></div>
+                                    <div class="bg-slate-100 p-4 rounded-lg"><h4 class="font-bold text-lg mb-2 text-slate-700">KM 28</h4><ul class="space-y-1.5 text-sm text-slate-600"><li>M. Aghna Ilman Rafa</li><li>Royyan Abdurrahman I.</li><li>Sakhi Arkan Elfariza</li><li>&nbsp;</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Agenda Harian -->
+            <section id="agenda" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Agenda Harian Santri</h2>
+                <p class="text-slate-500 mb-6">Ini dia panduan disiplin harianmu. Jadikan setiap momen berharga!</p>
+                
+                <div class="flex justify-center flex-wrap gap-2 mb-8 bg-white/70 backdrop-blur-sm p-2 rounded-full sticky top-[70px] md:top-4 z-10 border border-slate-200">
+                    <button class="filter-btn active flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold" data-filter="semua">Semua Waktu 🌍</button>
+                    <button class="filter-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-filter="pagi">Pagi ☀️</button>
+                    <button class="filter-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-filter="sore">Sore 🌇</button>
+                    <button class="filter-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-filter="malam">Malam 🌙</button>
+                </div>
+
+                <div id="timeline-container" class="space-y-6">
+                    <div class="daily-activity-card" data-time="pagi">
+                        <h3 class="text-xl font-bold text-sky-700 mb-4">Fajar & Pagi ☀️</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-sky-400 flex items-start gap-4"><span class="text-3xl shrink-0">⏰</span><div><p class="font-bold text-slate-800">03:00 - 03:45</p><p class="text-sm text-slate-600"><b>Bangun Tidur.</b> Santri mulai bangun dan bersiap ke masjid. <b>Pukul 03:45 santri sudah harus berada di masjid.</b></p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-sky-400 flex items-start gap-4"><span class="text-3xl shrink-0">🕌</span><div><p class="font-bold text-slate-800">03:45 - Subuh</p><p class="text-sm text-slate-600"><b>Ibadah Fajar:</b> Melaksanakan sholat Tahajud, tadarus mandiri, dan berdzikir. 10 menit sebelum adzan digunakan untuk wudhu.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-emerald-400 flex items-start gap-4"><span class="text-3xl shrink-0">📖</span><div><p class="font-bold text-slate-800">Subuh - Syuruq</p><p class="text-sm text-slate-600"><b>Kegiatan Subuh:</b> Sholat Subuh berjamaah, dilanjutkan dzikir pagi, tadarus (Juz 28-30), dan diakhiri dengan <b>Halaqah Tahfizh</b> bersama Musyrif.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-emerald-400 flex items-start gap-4"><span class="text-3xl shrink-0">🚿</span><div><p class="font-bold text-slate-800">Syuruq - 06:30</p><p class="text-sm text-slate-600"><b>Persiapan Pagi:</b> Piket makan (terjadwal), sarapan, mandi, dan kegiatan mandiri lainnya. Tim PPS membersihkan masjid.</p></div></div>
+                             <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-slate-400 flex items-start gap-4"><span class="text-3xl shrink-0">🚶</span><div><p class="font-bold text-slate-800">06:30 - 07:00</p><p class="text-sm text-slate-600"><b>Apel Pagi</b> rutin bersama Pamong dan Musyrif.</p></div></div>
+                        </div>
+                    </div>
+                    <div class="daily-activity-card" data-time="sore">
+                        <h3 class="text-xl font-bold text-amber-700 mb-4">Siang & Sore 🌇</h3>
+                        <div class="space-y-4">
+                             <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-slate-400 flex items-start gap-4"><span class="text-3xl shrink-0">📚</span><div><p class="font-bold text-slate-800">07:00 - 14:15</p><p class="text-sm text-slate-600"><b>KBM di Madrasah.</b> Fokus belajar di kelas masing-masing.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-amber-400 flex items-start gap-4"><span class="text-3xl shrink-0">🕌</span><div><p class="font-bold text-slate-800">14:15 - Ba'da Ashar</p><p class="text-sm text-slate-600"><b>Kegiatan Ashar:</b> Persiapan & sholat Ashar berjamaah. <b>Pukul 14.20 santri sudah harus berada di Masjid</b>, dilanjutkan dzikir petang dan program bahasa (Khitobah & Speech).</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-amber-400 flex items-start gap-4"><span class="text-3xl shrink-0">⚽</span><div><p class="font-bold text-slate-800">Ba'da Ashar - 17:00</p><p class="text-sm text-slate-600"><b>Aktivitas Sore:</b> Kegiatan mandiri terbatas seperti olahraga, mencuci, telepon, makan, dan mandi. Tim SS piket jaga gerbang.</p></div></div>
+                        </div>
+                    </div>
+                    <div class="daily-activity-card" data-time="malam">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-4">Malam 🌙</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-indigo-400 flex items-start gap-4"><span class="text-3xl shrink-0">🕌</span><div><p class="font-bold text-slate-800">17:00 - Isya</p><p class="text-sm text-slate-600"><b>Kegiatan Maghrib:</b> Piket sore, persiapan ke masjid. <b>Pukul 17.20 santri sudah harus berada di Masjid</b>, tadarus mandiri, sholat Maghrib berjamaah, dan diakhiri Taklim bersama Musyrif.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-indigo-400 flex items-start gap-4"><span class="text-3xl shrink-0">📖</span><div><p class="font-bold text-slate-800">Ba'da Isya - 20:30</p><p class="text-sm text-slate-600"><b>Kegiatan Isya:</b> Sholat Isya berjamaah, pengumuman, dan dilanjutkan dengan <b>Halaqah Tahfizh</b> bersama Musyrif.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-slate-800 flex items-start gap-4"><span class="text-3xl shrink-0">🍽️</span><div><p class="font-bold text-slate-800">20:30 - 21:00</p><p class="text-sm text-slate-600"><b>Aktivitas Malam:</b> Makan malam, belajar mandiri, telepon. Tim SABER membersihkan ruang makan, piket malam, dan persiapan tidur.</p></div></div>
+                            <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-slate-900 flex items-start gap-4"><span class="text-3xl shrink-0">💤</span><div><p class="font-bold text-slate-800">21:00 - 03:00</p><p class="text-sm text-slate-600"><b>Waktu Istirahat.</b> Semua lampu kamar dimatikan, santri beristirahat total.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="tata-tertib" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Tata Tertib Asrama</h2>
+                <p class="text-slate-500 mb-8">Pahami dan patuhi aturan untuk kenyamanan dan keberkahan bersama. Klik setiap kategori untuk melihat detailnya.</p>
+                
+                <div id="accordion-container" class="space-y-3">
+                    
+                    <!-- 1. Program Wajib -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🎯</span>
+                                <h3 class="text-lg font-bold text-purple-700">Program Bahasa, Tahfizh, & Tilawah</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                            <div id="wajib-tabs-container" class="space-y-6">
+                                <!-- Tata Tertib Bahasa -->
+                                <div class="bg-white p-5 rounded-lg shadow-inner border border-slate-200">
+                                    <h4 class="text-xl font-bold text-indigo-700 mb-4">🗣️ Tata Tertib Bahasa</h4>
+                                    <ul class="space-y-2 rules-list">
+                                        <li>Wajib menggunakan Bahasa Arab pada pekan ganjil dan Bahasa Inggris pada pekan genap (Subuh-07.30 & Maghrib-21.00).</li>
+                                        <li>Wajib mengikuti pembelajaran, menghafal, dan mempraktikkan kosakata serta percakapan.</li>
+                                        <li>Wajib mengikuti praktik massal setiap Jumat pagi dan tampil Muhadharah/Speech sesuai jadwal.</li>
+                                        <li>Pelanggar akan dibina melalui Mahkamah Lughah.</li>
+                                    </ul>
+                                </div>
+                                <!-- Tata Tertib Tahfizh -->
+                                <div class="bg-white p-5 rounded-lg shadow-inner border border-slate-200">
+                                    <h4 class="text-xl font-bold text-green-700 mb-4">📖 Tata Tertib Tahfizh</h4>
+                                    <ul class="space-y-2 rules-list">
+                                        <li>Wajib menyetorkan hafalan sesuai target juz yang ditentukan.</li>
+                                        <li>Setoran dilakukan jika hafalan sudah lancar, menggunakan mushaf pribadi dan buku setoran.</li>
+                                        <li>Wajib mengikuti halaqah tahfizh dan membaca materi bersama setiap Jumat ba'da Subuh.</li>
+                                        <li>Ketuntasan capaian dapat menjadi syarat perpulangan atau keikutsertaan kegiatan.</li>
+                                    </ul>
+                                </div>
+                                <!-- Tata Tertib Tilawah -->
+                                <div class="bg-white p-5 rounded-lg shadow-inner border border-slate-200">
+                                    <h4 class="text-xl font-bold text-sky-700 mb-4">📚 Tata Tertib Tilawah Mandiri</h4>
+                                    <ul class="space-y-2 rules-list">
+                                        <li>Wajib tilawah mandiri minimal 4 halaman setiap hari.</li>
+                                        <li>Tilawah dilakukan dengan suara terdengar (bukan dalam hati) dan dalam keadaan suci.</li>
+                                        <li>Wajib senantiasa membawa Al-Qur'an dalam kegiatan harian.</li>
+                                        <li>Wajib melaporkan capaian tilawah secara berkala.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Ibadah -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🕌</span>
+                                <h3 class="text-lg font-bold text-emerald-700">Tata Tertib Ibadah</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                            <div class="space-y-4 text-sm text-slate-600">
+                                <p>Siswa wajib melaksanakan semua ibadah yang ditentukan, menjaga kekhusyukan, dan hadir tepat waktu. Pelanggaran akan mempengaruhi nilai kepribadian.</p>
+                                <h4 class="font-bold text-slate-800 pt-2">Ketentuan Seragam Sholat:</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+                                    <div class="bg-slate-200 p-3 rounded-lg"><p class="font-semibold">Jumat - Ahad</p><p class="text-xs mt-1">Koko/Kemeja <b>PUTIH</b></p></div>
+                                    <div class="bg-sky-100 p-3 rounded-lg"><p class="font-semibold text-sky-800">Senin - Selasa</p><p class="text-xs mt-1">Kemeja <b>BATIK</b></p></div>
+                                    <div class="bg-amber-100 p-3 rounded-lg"><p class="font-semibold text-amber-800">Rabu - Jumat Subuh</p><p class="text-xs mt-1">Kemeja <b>BEBAS</b></p></div>
+                                </div>
+                                <div class="mt-2 bg-emerald-100 text-emerald-800 p-3 rounded-lg text-center text-xs font-semibold">
+                                    Setiap Saat Wajib: Mengenakan Peci, Sarung, dan membawa Sajadah.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Keamanan -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🛡️</span>
+                                <h3 class="text-lg font-bold text-sky-700">Tata Tertib Keamanan</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                            <ul class="space-y-2 rules-list text-sm">
+                                <li>Wajib menjaga ketenangan dan menjalin hubungan baik dengan semua warga.</li>
+                                <li>Wajib memberi label identitas pada semua barang pribadi.</li>
+                                <li>Dilarang memegang uang saku > <b>Rp 50.000</b> (batas bulanan Rp 400.000).</li>
+                                <li>Dilarang membawa barang berharga (HP, Laptop, dll) atau barang senilai > Rp 500.000.</li>
+                                <li>Wajib tidur di kamar dan kasur sendiri, selambat-lambatnya pukul <b>21.00 WIB</b>.</li>
+                                <li>Dilarang memasuki asrama lain atau kembali ke kamar saat jam KBM tanpa izin.</li>
+                                <li>Dilarang merusak fasilitas, termasuk CCTV.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- 4. Kebersihan & Kerapian -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🧹</span>
+                                <h3 class="text-lg font-bold text-amber-700">Tata Tertib Kebersihan & Kerapian</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                            <ul class="space-y-2 rules-list text-sm">
+                                <li>Setiap siswa bertanggung jawab atas kebersihan pribadi dan lingkungan asrama.</li>
+                                <li>Wajib melaksanakan piket kebersihan kamar, asrama, dan kamar mandi sesuai jadwal.</li>
+                                <li>Lemari harus selalu rapi, terkunci, dan bebas dari coretan/stiker.</li>
+                                <li>Ranjang tidak boleh diubah posisinya dan harus bebas dari coretan.</li>
+                                <li>Kasur dan bantal wajib bersprei dan dijemur minimal sebulan sekali.</li>
+                                <li>Penggunaan listrik hanya untuk keperluan yang diizinkan (setrika, kipas angin seperlunya).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 5. Kesehatan, Makan & Minum -->
+                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">❤️‍🩹</span>
+                                <h3 class="text-lg font-bold text-rose-700">Kesehatan, Makan & Minum</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                             <ul class="space-y-2 rules-list text-sm">
+                                <li>Wajib menjaga pola hidup bersih dan sehat (mandi, cuci tangan, dll).</li>
+                                <li>Wajib memakai pakaian bersih milik sendiri (dilarang pinjam-meminjam).</li>
+                                <li>Wajib sarapan dan makan bersama di waktu dan tempat yang ditentukan.</li>
+                                <li>Wajib memiliki dan menggunakan peralatan makan pribadi.</li>
+                                <li>Siswa sakit wajib melapor ke musyrif untuk penanganan lebih lanjut.</li>
+                                <li>Petugas piket makan wajib melayani dengan adil, bersih, dan sopan.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 6. Pintu Gerbang -->
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="accordion-header flex justify-between items-center p-5">
+                            <div class="flex items-center gap-4">
+                                <span class="text-3xl">🚪</span>
+                                <h3 class="text-lg font-bold text-gray-700">Tata Tertib Pintu Gerbang</h3>
+                            </div>
+                            <span class="accordion-icon">
+                                <svg class="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </div>
+                        <div class="accordion-content border-t border-slate-200 bg-slate-50">
+                             <ul class="space-y-2 rules-list text-sm">
+                                <li>Pintu gerbang selalu terkunci dan dijaga oleh petugas (PKM).</li>
+                                <li>Keluar-masuk wajib melalui akses yang ditentukan dengan izin yang sah (Kartu Pelajar/Buku Izin).</li>
+                                <li>Durasi izin keluar maksimal 30-60 menit dan wajib dicatat.</li>
+                                <li>Petugas berhak memeriksa barang bawaan dan menahan tamu/siswa yang mencurigakan atau melanggar.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barang Dilarang -->
+                <div class="mt-12">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">🚫 Barang yang Dilarang Keras</h3>
+                    <div class="bg-red-50 border-l-8 border-red-500 p-6 rounded-lg shadow-lg">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl mt-1">📱</span>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Peralatan Elektronik</h4>
+                                    <p class="text-xs text-red-700">Handphone, Laptop, Speaker, Smart Watch, dll.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl mt-1">🔪</span>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Senjata Tajam</h4>
+                                    <p class="text-xs text-red-700">Kecuali gunting & cutter untuk keperluan tugas.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl mt-1">🔥</span>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Alat Masak</h4>
+                                    <p class="text-xs text-red-700">Kompor portabel, pemanas air, dll.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-2xl mt-1">👖</span>
+                                <div>
+                                    <h4 class="font-semibold text-red-800">Pakaian Tidak Pantas</h4>
+                                    <p class="text-xs text-red-700">Jeans, ketat, transparan, atau sobek.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prosedur" class="content-section">
+  <h2 class="text-3xl font-bold text-slate-800 mb-2">Prosedur & Pengurus</h2>
+  <p class="text-slate-500 mb-6">Pahami alur perizinan, pembinaan, penjengukan, pengiriman, dan kenali struktur pengurus kamar.</p>
+
+  <div id="prosedur-tabs-container" class="bg-white p-4 md:p-6 rounded-2xl shadow-lg border border-slate-200">
+    <!-- Navigasi Tab -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mb-6">
+      <button class="tab-btn active py-2.5 px-3 rounded-full text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 transition" data-tab="prosedur-izin">📝 Perizinan</button>
+      <button class="tab-btn py-2.5 px-3 rounded-full text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition" data-tab="prosedur-pembinaan">📈 Pembinaan</button>
+      <button class="tab-btn py-2.5 px-3 rounded-full text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition" data-tab="prosedur-penjengukan">👨‍👩‍👧‍👦 Penjengukan</button>
+      <button class="tab-btn py-2.5 px-3 rounded-full text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition" data-tab="prosedur-pengiriman">🛵 Pengiriman</button>
+      <button class="tab-btn py-2.5 px-3 rounded-full text-xs sm:text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 transition" data-tab="prosedur-pengurus">🧑‍🤝‍🧑 Pengurus</button>
+    </div>
+
+                    <div id="prosedur-izin" class="tab-content active">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-4 text-center">Panduan Izin & Keterlambatan</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-sky-50 p-5 rounded-lg border-l-4 border-sky-400"><h4 class="font-bold text-lg text-sky-800 mb-3">🏃 Izin Keluar Asrama (Setiap Sore & Jumat Pagi)</h4><p class="text-sm text-sky-700">Santri langsung lapor ke Tim SS/Satpam, titip Kartu Pelajar, dan isi keperluan di Buku Keluar-Masuk.</p></div>
+                            <div class="bg-sky-50 p-5 rounded-lg border-l-4 border-sky-400"><h4 class="font-bold text-lg text-sky-800 mb-3">✈️ Izin Acara Keluarga (2-3 Hari)</h4><p class="text-sm text-sky-700">Orang tua/wali izin ke Pamong via WhatsApp atau membawa surat tertulis.</p></div>
+                            <div class="bg-sky-50 p-5 rounded-lg border-l-4 border-sky-400"><h4 class="font-bold text-lg text-sky-800 mb-3">📄 Izin Acara Keluarga (>3 Hari)</h4><p class="text-sm text-sky-700">Orang tua/wali wajib mengirim surat tertulis resmi yang ditujukan kepada Direktur.</p></div>
+                            <div class="bg-sky-50 p-5 rounded-lg border-l-4 border-sky-400"><h4 class="font-bold text-lg text-sky-800 mb-3">🩺 Izin Sakit / Cuti Pulang</h4><p class="text-sm text-sky-700">Orang tua/wali mengirim surat ke Direktur dengan melampirkan surat keterangan dokter.</p></div>
+                        </div>
+                        <div class="mt-6 bg-red-50 p-5 rounded-lg border-l-4 border-red-500">
+                             <h4 class="font-bold text-lg text-red-800 mb-3">⏰ SOP Keterlambatan Kembali ke Asrama</h4>
+                             <p class="text-sm text-red-700">Jika terlambat, Wali Santri wajib membuat dan mengirim <b>Surat Keterlambatan</b> (format di <a href='https://asramasatu.carrd.co' target='_blank' class='font-bold underline hover:text-red-600'>asramasatu.carrd.co</a>) yang sudah ditandatangani ke Koordinator Musyrif.</p>
+                        </div>
+                    </div>
+
+                    <div id="prosedur-pembinaan" class="tab-content">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-8 text-center">Alur Pembinaan Pelanggaran Ibadah</h3>
+                        <div class="flowchart">
+                            <div class="flowchart-step"><div class="flowchart-content border-sky-500"><div class="text-2xl font-bold text-sky-600 mb-2">1</div><h4 class="font-bold text-sky-800">1-10x Alpa</h4><p class="text-xs text-slate-500 mt-1">Nasihat oleh <b>Musyrif</b> 🗣️</p></div></div>
+                            <div class="flowchart-arrow">→</div>
+                            <div class="flowchart-step"><div class="flowchart-content border-amber-500"><div class="text-2xl font-bold text-amber-600 mb-2">2</div><h4 class="font-bold text-amber-800">11-20x Alpa</h4><p class="text-xs text-slate-500 mt-1">Diskusi <b>Pamong</b> & SP 1 ✍️</p></div></div>
+                            <div class="flowchart-arrow">→</div>
+                            <div class="flowchart-step"><div class="flowchart-content border-orange-500"><div class="text-2xl font-bold text-orange-600 mb-2">3</div><h4 class="font-bold text-orange-800">21-30x Alpa</h4><p class="text-xs text-slate-500 mt-1">Bimbingan <b>SU. KIS</b> & Panggil Ortu 📞</p></div></div>
+                             <div class="flowchart-arrow">→</div>
+                            <div class="flowchart-step"><div class="flowchart-content border-red-500"><div class="text-2xl font-bold text-red-600 mb-2">4</div><h4 class="font-bold text-red-800">31-40x Alpa</h4><p class="text-xs text-slate-500 mt-1">Bimbingan <b>Wadir IV</b> & Panggil Ortu ☎️</p></div></div>
+                             <div class="flowchart-arrow">→</div>
+                            <div class="flowchart-step"><div class="flowchart-content border-slate-500"><div class="text-2xl font-bold text-slate-600 mb-2">5</div><h4 class="font-bold text-slate-800">> 41x Alpa</h4><p class="text-xs text-slate-500 mt-1">Menghadap <b>Direktur</b> 😱</p></div></div>
+                        </div>
+                    </div>
+
+                    <div id="prosedur-penjengukan" class="tab-content">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-6 text-center">Teknis Penjengukan Pekanan</h3>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 p-5 rounded-xl border-l-4 border-blue-400 space-y-4">
+                                <h4 class="font-bold text-lg text-blue-800">🗓️ Waktu Penjengukan</h4>
+                                <div><p class="font-semibold text-slate-700">KAMIS:</p><ul class="list-disc list-inside text-sm text-slate-600 pl-2"><li>🌞 Sesi Siang: 13.00 - 14.30 (di asrama)</li><li>🌅 Sesi Sore: 16.00 - 17.00 (di asrama)</li></ul></div>
+                                <div><p class="font-semibold text-slate-700">JUMAT:</p><ul class="list-disc list-inside text-sm text-slate-600 pl-2"><li>🌄 Sesi Pagi: 07.00 - 10.00 <span class="font-bold text-green-600">(Boleh dibawa keluar)</span></li><li>🌤️ Sesi Siang: 13.00 - 14.30 (di asrama)</li><li>🌇 Sesi Sore: 16.00 - 17.00 (di asrama)</li></ul></div>
+                            </div>
+                            <div class="bg-purple-50 p-5 rounded-xl border-l-4 border-purple-400 space-y-4">
+                                <h4 class="font-bold text-lg text-purple-800">📍 Lokasi & Parkir</h4>
+                                <div><p class="font-semibold text-slate-700">Lokasi Jenguk:</p><p class="text-sm text-slate-600">Area Masjid Jami', Depan Madrasah, Kantin, Lapangan Tengah.</p></div>
+                                <div><p class="font-semibold text-slate-700">Kantong Parkir:</p><p class="text-sm text-slate-600">Lapangan Tengah, Depan Madrasah, Halaman Asrama 10, Lapangan Futsal Asrama 8.</p></div>
+                            </div>
+                            <div class="bg-green-50 p-5 rounded-xl border-l-4 border-green-400"><h4 class="font-bold text-lg text-green-800 mb-2">✅ Yang Harus Dilakukan (Syarat)</h4><ul class="list-disc list-inside text-sm text-green-700 space-y-1"><li>Keluar asrama (Jumat pagi) wajib menitipkan Kartu Pelajar.</li><li>Telah menyelesaikan kerja bakti pagi hari.</li><li>Berpamitan kepada Pamong/Musyrif yang piket.</li><li>Mengisi buku perizinan di Pos Keamanan (PKM).</li></ul></div>
+                            <div class="bg-red-50 p-5 rounded-xl border-l-4 border-red-400"><h4 class="font-bold text-lg text-red-800 mb-2">🚫 Yang Harus Dihindari (Larangan)</h4><ul class="list-disc list-inside text-sm text-red-700 space-y-1"><li>Merokok di seluruh area madrasah.</li><li>Masuk ke area privat asrama (kamar tidur/koridor).</li><li>Mengenakan pakaian yang tidak menutup aurat.</li><li>Berkomunikasi dengan tidak baik kepada warga madrasah.</li></ul></div>
+                        </div>
+                    </div>
+
+                    <div id="prosedur-pengiriman" class="tab-content">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-6 text-center">Alur Pengiriman Makanan Basah</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-sky-400">
+                                <div class="text-5xl mb-3">🕒</div>
+                                <h4 class="font-bold text-lg text-sky-800">1. Cek Waktu</h4>
+                                <p class="text-sm text-slate-500 mt-1">Pengiriman hanya pada hari <b>KAMIS & JUMAT</b>, maksimal pukul <b>17.00 WIB</b>.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-amber-400">
+                                <div class="text-5xl mb-3">✍️</div>
+                                <h4 class="font-bold text-lg text-amber-800">2. Tulis Identitas</h4>
+                                <p class="text-sm text-slate-500 mt-1">Pastikan paket diberi label: <b>Nama Lengkap, Kelas, Kamar, dan Asrama</b>.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-emerald-400">
+                                <div class="text-5xl mb-3">📍</div>
+                                <h4 class="font-bold text-lg text-emerald-800">3. Kirim ke Alamat</h4>
+                                <p class="text-sm text-slate-500 mt-1">Madrasah Mu’allimin Muhammadiyah, Jln. S. Parman No. 68, Wirobrajan, Yogyakarta 55252.</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 bg-rose-50 p-5 rounded-lg border-l-4 border-rose-500">
+                            <h4 class="font-bold text-lg text-rose-800 mb-2 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Catatan Penting</h4>
+                            <ul class="list-disc list-inside text-sm text-rose-700 space-y-1 mt-2">
+                                <li>Makanan yang tiba setelah pukul 17.00 <b>akan disita oleh Satpam</b> untuk dimanfaatkan bagi yang membutuhkan.</li>
+                                <li>Pastikan jenis makanan tidak cepat basi.</li>
+                                <li>Paket tanpa identitas lengkap atau tidak sampai ke tujuan <b>bukan menjadi tanggung jawab</b> asrama.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="prosedur-pengurus" class="tab-content">
+                        <h3 class="text-xl font-bold text-emerald-700 mb-2 text-center">Struktur Pengurus Kamar</h3>
+                        <p class="text-slate-500 mb-8 text-center">Kenali para pengurus yang bertanggung jawab di setiap kamar.</p>
+                        
+                        <div id="pengurus-tabs-container">
+                            <!-- Tombol Tab Kamar -->
+                            <div class="flex flex-wrap justify-center gap-2 mb-8 bg-slate-200/70 backdrop-blur-sm p-2 rounded-full z-10 border border-slate-300">
+                                <button class="tab-btn active flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold" data-tab="pengurus-kamar-f">Kamar F</button>
+                                <button class="tab-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-tab="pengurus-kamar-g">Kamar G</button>
+                                <button class="tab-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-tab="pengurus-kamar-h">Kamar H</button>
+                                <button class="tab-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-tab="pengurus-kamar-i">Kamar I</button>
+                                <button class="tab-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-tab="pengurus-kamar-k">Kamar K</button>
+                                <button class="tab-btn flex-1 sm:flex-initial py-2 px-4 rounded-full text-sm font-semibold text-slate-600" data-tab="pengurus-kamar-l">Kamar L</button>
+                            </div>
+
+                            <!-- Konten Pengurus per Kamar -->
+                            <div>
+                                <div id="pengurus-kamar-f" class="tab-content active">
+                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Dama Arza Evannova</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> Arkana El Sabilly</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> M. Fathir Alfalah</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Firaas Izzulhaq</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> Ahmad Ahsanur Rizqi</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Gilang Omar F</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Devgan Jadid S.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Danar Nizam D.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Kemal Mubarak S.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Adelio Daffa S.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pengurus-kamar-g" class="tab-content">
+                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Narendra Wibawa</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> Mekha Ilham L.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> Aydin Rafif</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Ghani Arif W.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> M. Dede Afkar</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Arfandhika Fakhrul I.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Iqbal Zulfikar Al Hanif</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Naufal Zhafran P.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Haidarrafid Satriaa A.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Alano Faaiq Alfeno</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pengurus-kamar-h" class="tab-content">
+                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Fawwaz Elfareza Zuhri</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> William Ramadhan A.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> Aldan 'Izzul Islam</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Rijal Abdul A'Ziz</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> Muhammad Ayyub Al Fatih</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Rais Abqari Ash Shidqi</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Muhammad Gibran R.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Ahmad Darwis</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2A</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Nazhif Fahreza Z.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Zia El Ibrahim A.P.W</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pengurus-kamar-i" class="tab-content">
+                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Nizar Adhyatma Aryanda</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> Dzaky Salman Al Farisi</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> M. Alvi Mumtaz B.H.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Nawwaf Bahy Rafif</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> Wildan Faiz Mahendra</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Ahmad Miqdad</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Muhammad Mahdi Hafidz</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Umar Ubaidillah T.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Faiq Fauzil Adhim</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2C</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Nahsif Ilman Hazim P.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2B</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pengurus-kamar-k" class="tab-content">
+                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Muzakki Fairuzzaman</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2C</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> Neymar Tsaqif H.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2C</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> Galang Afkar Artyanto</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Achmad Adi Darwis E.</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> M. Daffa Naufal A.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2C</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Rizqi Ahmad Altaf Z.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Muhammad Muhdi Hafidz</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Muhammad Alif Al-Fatih</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Gilang Asytar Artyanto</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2D</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Muwafaqi Amru Ahmad</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2G</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="pengurus-kamar-l" class="tab-content">
+                                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-emerald-700 mb-4">👑 Badan Pengurus Harian</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Ketua:</b> Sakhi Arkan Elfariza</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Wakil:</b> Azri Labibul Khawarizmi</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Sekretaris:</b> Abid Fadhil Abiyah</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bendahara:</b> Muh. Naufal Alif</span><span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-slate-50 p-6 rounded-xl shadow-md border border-slate-200">
+                                            <h3 class="text-xl font-bold text-sky-700 mb-4">🎯 Bidang - Bidang</h3>
+                                            <div class="space-y-3 text-sm">
+                                                <div class="flex justify-between items-center"><span><b>Keamanan:</b> Royyan Abdurrahman I.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Ibadah:</b> Dzar Al Ghifari</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Bahasa:</b> Khawarizmi Fakhrulhaq</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Kegiatan:</b> Hisyam Nabil Pasha</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Lingkungan:</b> Ahmad Dahlan Asy'Ari</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                                <div class="flex justify-between items-center"><span><b>Dapur:</b> Athallah Azmi Ghaisan M.</span><span class="bg-sky-100 text-sky-800 text-xs font-semibold px-2 py-1 rounded-full">2H</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- Navigasi Bawah (Mobile) -->
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-slate-200 grid grid-cols-5 z-20">
+            <a href="#beranda" class="nav-link-mobile flex-1 flex flex-col items-center justify-center pt-2 pb-1 text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mb-0.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span class="text-xs font-medium">Beranda</span></a>
+            <a href="#program" class="nav-link-mobile flex-1 flex flex-col items-center justify-center pt-2 pb-1 text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mb-0.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span class="text-xs font-medium">Program</span></a>
+            <a href="#agenda" class="nav-link-mobile flex-1 flex flex-col items-center justify-center pt-2 pb-1 text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mb-0.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><span class="text-xs font-medium">Agenda</span></a>
+            <a href="#tata-tertib" class="nav-link-mobile flex-1 flex flex-col items-center justify-center pt-2 pb-1 text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mb-0.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg><span class="text-xs font-medium">Aturan</span></a>
+            <a href="#prosedur" class="nav-link-mobile flex-1 flex flex-col items-center justify-center pt-2 pb-1 text-slate-600"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mb-0.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="text-xs font-medium">Info</span></a>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Elemen & Data Penting ---
+            const contentSections = document.querySelectorAll('.content-section');
+            const mobileHeader = document.getElementById('mobile-header');
+            const mainContent = document.querySelector('main');
+            const sectionInfo = {
+                'beranda': { title: 'Beranda', icon: '🏠' },
+                'program': { title: 'Program Unggulan', icon: '🌟' },
+                'profil': { title: 'Profil Asrama', icon: '🏢' },
+                'agenda': { title: 'Agenda Harian', icon: '🗓️' },
+                'tata-tertib': { title: 'Tata Tertib', icon: '📜' },
+                'prosedur': { title: 'Prosedur & Pengurus', icon: '⚖️' }
+            };
+            
+            // --- Fungsi Utama untuk Menampilkan Section ---
+            function showSection(hash, isInitialLoad = false) {
+                const targetHash = hash || '#beranda';
+                let targetId = targetHash.substring(1);
+
+                // Handle special case where profil and tata-tertib might have the same content section ID
+                const targetSection = document.getElementById(targetId);
+                if (!targetSection) {
+                    // Fallback or find the correct section if IDs are complex
+                    const sections = Array.from(contentSections);
+                    const foundSection = sections.find(s => s.id === targetId);
+                    if (!foundSection) {
+                        console.error(`Section with id "${targetId}" not found.`);
+                        return;
+                    }
+                }
+
+
+                contentSections.forEach(section => {
+                    // Deactivate all sections first
+                    section.classList.remove('active');
+                });
+                // Then activate the target section
+                 if(targetSection) {
+                    targetSection.classList.add('active');
+                 }
+
+
+                // Update header mobile
+                if (mobileHeader && sectionInfo[targetId]) {
+                    mobileHeader.innerHTML = `<span class="text-xl">${sectionInfo[targetId].icon}</span> ${sectionInfo[targetId].title}`;
+                }
+
+                // Update status aktif pada link navigasi
+                document.querySelectorAll('.nav-link, .nav-link-mobile, .nav-link-internal').forEach(link => {
+                    const linkHref = link.getAttribute('href');
+                    const isActive = (linkHref === targetHash);
+                    link.classList.toggle('active', isActive);
+                });
+                
+                // Scroll ke atas saat pindah halaman
+                if (!isInitialLoad && mainContent) {
+                    mainContent.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+
+            // --- Handler Navigasi SPA ---
+            function setupNavigation() {
+                document.body.addEventListener('click', function(e) {
+                    const link = e.target.closest('a[href^="#"]');
+                    if (link) {
+                        e.preventDefault();
+                        const targetHash = link.getAttribute('href');
+                        if (window.location.hash !== targetHash) {
+                            history.pushState(null, '', targetHash);
+                        }
+                        showSection(targetHash);
+                    }
+                });
+
+                window.addEventListener('popstate', () => showSection(window.location.hash));
+                showSection(window.location.hash || '#beranda', true);
+            }
+
+            // --- Fungsi Reusable untuk Sistem Tab ---
+            function setupTabs(containerSelector, buttonClass, contentClass) {
+                const container = document.querySelector(containerSelector);
+                if (!container) return;
+
+                container.addEventListener('click', function(e) {
+                    const button = e.target.closest(buttonClass);
+                    if (!button || button.classList.contains('active')) return;
+
+                    const tabId = button.dataset.tab;
+                    const tabButtons = container.querySelectorAll(buttonClass);
+                    const tabContents = Array.from(container.querySelectorAll(contentClass));
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Deactivate all tab contents within this specific container
+                    const parentContainer = button.closest(containerSelector);
+                    parentContainer.querySelectorAll(contentClass).forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    const targetContent = container.querySelector('#' + tabId);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            }
+
+            // --- Inisialisasi Filter Agenda Harian ---
+            function setupDailyScheduleFilter() {
+                const filterContainer = document.querySelector('#agenda');
+                if (!filterContainer) return;
+
+                const filterButtons = filterContainer.querySelectorAll('.filter-btn');
+                const timelineItems = filterContainer.querySelectorAll('.daily-activity-card');
+
+                filterContainer.addEventListener('click', (e) => {
+                    const button = e.target.closest('.filter-btn');
+                    if (!button || button.classList.contains('active')) return;
+
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filter = button.dataset.filter;
+
+                    timelineItems.forEach(item => {
+                        const itemTime = item.dataset.time;
+                        const showItem = (filter === 'semua' || itemTime === filter);
+                        item.classList.toggle('filtered-out', !showItem);
+                    });
+                });
+            }
+
+            // --- Inisialisasi Akordeon ---
+            function setupAccordion() {
+                const accordionContainer = document.getElementById('accordion-container');
+                if (!accordionContainer) return;
+
+                accordionContainer.addEventListener('click', (e) => {
+                    const header = e.target.closest('.accordion-header');
+                    if (!header) return;
+
+                    const content = header.nextElementSibling;
+                    
+                    // Toggle the clicked accordion
+                    header.classList.toggle('active');
+                    if (header.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    } else {
+                        content.style.maxHeight = null;
+                    }
+
+                    // Optional: Close others when one is opened
+                    accordionContainer.querySelectorAll('.accordion-header').forEach(otherHeader => {
+                        if (otherHeader !== header) {
+                            otherHeader.classList.remove('active');
+                            otherHeader.nextElementSibling.style.maxHeight = null;
+                        }
+                    });
+                });
+            }
+
+            // --- Jalankan semua inisialisasi ---
+            setupNavigation();
+            setupTabs('#program-tabs-container', '.tab-btn', '.tab-content');
+            setupTabs('#prosedur-tabs-container', '.tab-btn', '.tab-content');
+            setupTabs('#pengurus-tabs-container', '.tab-btn', '.tab-content');
+            setupTabs('#profil-tabs-container', '.tab-btn', '.tab-content');
+            setupTabs('#kamar-tabs-container', '.tab-btn', '.tab-content');
+            setupTabs('#wajib-tabs-container', '.tab-btn', '.tab-content');
+            setupDailyScheduleFilter();
+            setupAccordion();
+        });
+    </script>
+</body>
+</html>
